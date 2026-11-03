@@ -26,6 +26,8 @@ namespace Danmarks_Radio.Controllers
             [FromQuery] string? titleContains = null,
             [FromQuery] string? artist = null,
             [FromQuery] string? sortBy = null)
+
+
         {
             try
             {
@@ -35,6 +37,24 @@ namespace Danmarks_Radio.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        // CRUD - Update
+        // CRUD - ADD
+        // Crud - Delete
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<MusicRecord> Delete(int id)
+        {
+            MusicRecord? deletedRecord = _repository.Delete(id);
+
+            if (deletedRecord == null)
+            {
+                return NotFound($"MusicRecord med id {id} blev ikke fundet.");
+            }
+
+            return Ok(deletedRecord);
         }
     }
 }
