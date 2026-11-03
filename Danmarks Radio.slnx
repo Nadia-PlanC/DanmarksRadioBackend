@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Danmarks Radio/Danmarks Radio.csproj" />
+  <Project Path="MusicRecordTest/MusicRecordTest.csproj" Id="ab19af44-3af5-4877-87b4-56753fb457d8" />
 </Solution>
