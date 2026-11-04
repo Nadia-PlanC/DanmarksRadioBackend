@@ -59,6 +59,7 @@ namespace Danmarks_Radio.Repos
         {
             return _records.FirstOrDefault(r => r.Id == id);
         }
+
         public MusicRecord AddRecord(MusicRecord record)
         {
             if (record is null)

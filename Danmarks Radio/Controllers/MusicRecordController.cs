@@ -37,6 +37,23 @@ namespace Danmarks_Radio.Controllers
             }
         }
 
+        // POST api/<MusicRecordController>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "User")]
+
+        public ActionResult<MusicRecord> Post([FromBody] MusicRecord newRecord)
+        {
+            if (newRecord == null)
+            {
+                return BadRequest();
+            }
+            MusicRecord createdRecord = _repository.AddRecord(newRecord);
+            return CreatedAtAction(nameof(Get), new { id = createdRecord.Id }, createdRecord);
+        }
+
+        // Delete api/<MusicRecordController>
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,6 +70,7 @@ namespace Danmarks_Radio.Controllers
             return Ok(deletedRecord);
         }
 
+        // Put api/<MusicRecordController>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
