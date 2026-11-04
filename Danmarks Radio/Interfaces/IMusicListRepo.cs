@@ -11,13 +11,5 @@ namespace Danmarks_Radio.Interfaces
         public MusicRecord AddRecord(MusicRecord record);
         public MusicRecord? RemoveRecord(int id);
         public MusicRecord? UpdateRecord(int id, MusicRecord updatedRecord);
-
-
-
-
-
-
-
-
     }
 }
