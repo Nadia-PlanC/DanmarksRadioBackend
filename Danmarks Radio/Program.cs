@@ -77,10 +77,6 @@ builder.Services.AddSingleton<IUserListRepo>(new UserListRepo(includeData: true)
 
 var app = builder.Build();
 
-// JWT Setup
-app.UseAuthentication(); // "Who are you?"
-app.UseAuthorization();  // "Are you allowed to be here?"
-
 // Swagger Setup
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -91,10 +87,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseHttpsRedirection();
+
 // 2. Define that CORS should be used!
 app.UseCors("AllowAll");
 
-app.UseHttpsRedirection();
+// JWT Setup
+app.UseAuthentication(); // "Who are you?"
+app.UseAuthorization();  // "Are you allowed to be here?"
 
 app.MapControllers();
 
