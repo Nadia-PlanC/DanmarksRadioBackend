@@ -36,5 +36,37 @@ namespace Danmarks_Radio.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<MusicRecord> Delete(int id)
+        {
+            MusicRecord? deletedRecord = _repository.RemoveRecord(id);
+
+            if (deletedRecord == null)
+            {
+                return NotFound($"MusicRecord med id {id} blev ikke fundet.");
+            }
+
+            return Ok(deletedRecord);
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "User")]
+        public ActionResult<MusicRecord> Put(int id, [FromBody] MusicRecord updates)
+        {
+            MusicRecord? updatedRecord = _repository.UpdateRecord(id, updates);
+            if (updatedRecord == null)
+            {
+                return NotFound($"MusicRecord med id {id} blev ikke fundet.");
+            }
+            return Ok(updatedRecord);
+        }
+
+
     }
 }
