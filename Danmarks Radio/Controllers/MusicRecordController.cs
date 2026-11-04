@@ -1,10 +1,12 @@
 ﻿using Danmarks_Radio.Interfaces;
 using Danmarks_Radio.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Danmarks_Radio.Controllers
 {
+    [EnableCors("AllowAll")] // ADD CORS policy to the controller
     [Route("api/[controller]")]
     [ApiController]
     public class MusicRecordController : ControllerBase
