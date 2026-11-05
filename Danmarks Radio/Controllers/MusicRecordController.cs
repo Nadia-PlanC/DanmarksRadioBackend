@@ -11,9 +11,9 @@ namespace Danmarks_Radio.Controllers
     [ApiController]
     public class MusicRecordController : ControllerBase
     {
-        private readonly IMusicListRepo _repository;
+        private readonly IMusicRepo _repository;
 
-        public MusicRecordController(IMusicListRepo repository)
+        public MusicRecordController(IMusicRepo repository)
         {
             _repository = repository;
         }

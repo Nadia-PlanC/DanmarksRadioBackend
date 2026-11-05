@@ -39,13 +39,13 @@ namespace MusicRecordTest
 
             IEnumerable<MusicRecord> actual = repo.GetAll(sortBy: "year");
 
-            Assert.Equal(1975, actual.First().Year);
+            Assert.Equal(1975, actual.First().PublicationYear);
         }
 
         [Fact]
         public void AddRecord_AssignsIdAndStores()
         {
-            MusicRecord newRecord = new MusicRecord { Title = "TestRecord", Artist = "TestArtist", Duration = 5.55f, Year = 2023 };
+            MusicRecord newRecord = new MusicRecord { Title = "TestRecord", Artist = "TestArtist", Duration = 335, PublicationYear = 2023 };
 
             MusicRecord added = _repo.AddRecord(newRecord); 
 
@@ -53,15 +53,15 @@ namespace MusicRecordTest
             Assert.Equal(1, firstId);
             Assert.Equal("TestRecord", added.Title);
             Assert.Equal("TestArtist", added.Artist);
-            Assert.Equal(5.55f, added.Duration);
-            Assert.Equal(2023, added.Year);
+            Assert.Equal(335, added.Duration);
+            Assert.Equal(2023, added.PublicationYear);
 
             IEnumerable<MusicRecord> all = _repo.GetAllRecords();
             int countAfterAdd = all.Count();
             Assert.Equal(1, countAfterAdd);
 
             // Add second record and verify id increments
-            MusicRecord secondRecord = new MusicRecord { Title = "Second", Artist = "SecondArtist", Duration = 6.00f, Year = 2024 };
+            MusicRecord secondRecord = new MusicRecord { Title = "Second", Artist = "SecondArtist", Duration = 360, PublicationYear = 2024 };
             MusicRecord addedSecond = _repo.AddRecord(secondRecord);
             Assert.Equal(2, addedSecond.Id);
 
@@ -80,7 +80,7 @@ namespace MusicRecordTest
         [Fact]
         public void RemoveRecord_RemovesAndReturns()
         {
-            MusicRecord record = new MusicRecord { Title = "ToRemove", Artist = "ToRemove", Duration = 5.55f, Year = 2023 };
+            MusicRecord record = new MusicRecord { Title = "ToRemove", Artist = "ToRemove", Duration = 335, PublicationYear = 2023 };
             MusicRecord added = _repo.AddRecord(record);
 
             MusicRecord? removed = _repo.RemoveRecord(added.Id);
@@ -105,33 +105,33 @@ namespace MusicRecordTest
         public void UpdateRecord_UpdatesExisting_ReturnsUpdated()
         {
             //MusicListRepo repo = new MusicListRepo(includeData: false);
-            MusicRecord original = new MusicRecord { Title = "Old", Artist = "OldArtist", Duration = 5.55f, Year = 1985 };
+            MusicRecord original = new MusicRecord { Title = "Old", Artist = "OldArtist", Duration = 335, PublicationYear = 1985 };
             MusicRecord added = _repo.AddRecord(original);
 
-            MusicRecord updatedInfo = new MusicRecord { Title = "NewTitle", Artist = "NewArtist", Duration = 6.00f, Year = 1985 };
+            MusicRecord updatedInfo = new MusicRecord { Title = "NewTitle", Artist = "NewArtist", Duration = 360, PublicationYear = 1985 };
             MusicRecord? updated = _repo.UpdateRecord(added.Id, updatedInfo);
 
             Assert.NotNull(updated);
             Assert.Equal(added.Id, updated!.Id);
             Assert.Equal("NewTitle", updated.Title);
             Assert.Equal("NewArtist", updated.Artist);
-            Assert.Equal(6.00f, updated.Duration);
-            Assert.Equal(1985, updated.Year);
+            Assert.Equal(360, updated.Duration);
+            Assert.Equal(1985, updated.PublicationYear);
 
             // Confirm repository stored the updated values
             MusicRecord? stored = _repo.GetRecordById(added.Id);
             Assert.NotNull(stored);
             Assert.Equal("NewTitle", stored!.Title);
             Assert.Equal("NewArtist", stored!.Artist);
-            Assert.Equal(6.00f, stored!.Duration);
-            Assert.Equal(1985, stored!.Year);
+            Assert.Equal(360, stored!.Duration);
+            Assert.Equal(1985, stored!.PublicationYear);
         }
 
         [Fact]
         public void UpdateActress_NonExistent_ReturnsNull()
         {
             //MusicListRepo repo = new MusicListRepo(includeData: false);
-            MusicRecord updatedInfo = new MusicRecord { Title = "Whatever", Artist = "Whatever", Duration = 6.00f, Year = 1900 };
+            MusicRecord updatedInfo = new MusicRecord { Title = "Whatever", Artist = "Whatever", Duration = 360, PublicationYear = 1900 };
 
             MusicRecord? updated = _repo.UpdateRecord(7, updatedInfo);
             Assert.Null(updated);

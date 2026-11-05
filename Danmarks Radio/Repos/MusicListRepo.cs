@@ -3,7 +3,7 @@ using Danmarks_Radio.Models;
 
 namespace Danmarks_Radio.Repos
 {
-    public class MusicListRepo : IMusicListRepo
+    public class MusicListRepo : IMusicRepo
     {
         private readonly List<MusicRecord> _records = new();
         private int _nextId = 1;
@@ -12,10 +12,10 @@ namespace Danmarks_Radio.Repos
         {
             if (includeData)
             {
-                _records.Add(new MusicRecord { Id = 1, Title = "Bohemian Rhapsody", Artist = "Queen", Duration = 5.55f, Year = 1975 });
-                _records.Add(new MusicRecord { Id = 2, Title = "Billie Jean", Artist = "Michael Jackson", Duration = 4.54f, Year = 1982 });
-                _records.Add(new MusicRecord { Id = 3, Title = "Smells Like Teen Spirit", Artist = "Nirvana", Duration = 5.01f, Year = 1991 });
-                _records.Add(new MusicRecord { Id = 4, Title = "Blinding Lights", Artist = "The Weeknd", Duration = 3.20f, Year = 2019 });
+                _records.Add(new MusicRecord { Id = 1, Title = "Bohemian Rhapsody", Artist = "Queen", Duration = 355, PublicationYear = 1975 });
+                _records.Add(new MusicRecord { Id = 2, Title = "Billie Jean", Artist = "Michael Jackson", Duration = 294, PublicationYear = 1982 });
+                _records.Add(new MusicRecord { Id = 3, Title = "Smells Like Teen Spirit", Artist = "Nirvana", Duration = 301, PublicationYear = 1991 });
+                _records.Add(new MusicRecord { Id = 4, Title = "Blinding Lights", Artist = "The Weeknd", Duration = 200, PublicationYear = 2019 });
             }
         }
 
@@ -47,9 +47,9 @@ namespace Danmarks_Radio.Repos
                 case "titleDesc":
                     return result.OrderByDescending(s => s.Title);
                 case "year":
-                    return result.OrderBy(s => s.Year);
+                    return result.OrderBy(s => s.PublicationYear);
                 case "yearDesc":
-                    return result.OrderByDescending(s => s.Year);
+                    return result.OrderByDescending(s => s.PublicationYear);
                 default:
                     throw new ArgumentException("Illegal sorting: " + sortBy);
             }
@@ -90,7 +90,7 @@ namespace Danmarks_Radio.Repos
                 existingRecord.Title = updatedRecord.Title;
                 existingRecord.Artist = updatedRecord.Artist;
                 existingRecord.Duration = updatedRecord.Duration;
-                existingRecord.Year = updatedRecord.Year;
+                existingRecord.PublicationYear = updatedRecord.PublicationYear;
                 return existingRecord;
             }
             return null;

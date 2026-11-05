@@ -1,6 +1,8 @@
+using Danmarks_Radio.EFDB;
 using Danmarks_Radio.Interfaces;
 using Danmarks_Radio.Repos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
@@ -72,8 +74,13 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-builder.Services.AddSingleton<IMusicListRepo>(new MusicListRepo(includeData: true)); // For MusicRecord List Repo
-builder.Services.AddSingleton<IUserListRepo>(new UserListRepo(includeData: true)); // For User List Repo
+// Database (Entity Framework)
+var connectionString = builder.Configuration["ConnectionString"]; // secret json
+builder.Services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddTransient<IMusicRepo, DbMusicRepo>(); // Transient, fordi data ligger i databasen
+//builder.Services.AddSingleton<IMusicRepo>(new MusicListRepo(includeData: true)); // List version
+builder.Services.AddTransient<IUserRepo, DbUserRepo>(); // Transient, fordi data ligger i databasen
+//builder.Services.AddSingleton<IUserRepo>(new UserListRepo(includeData: true)); // List version
 
 var app = builder.Build();
 

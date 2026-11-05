@@ -3,7 +3,7 @@ using Danmarks_Radio.Models;
 
 namespace Danmarks_Radio.Repos
 {
-    public class UserListRepo : IUserListRepo
+    public class UserListRepo : IUserRepo
     {
         private readonly List<User> _users = new();
 

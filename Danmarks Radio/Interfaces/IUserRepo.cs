@@ -2,7 +2,7 @@
 
 namespace Danmarks_Radio.Interfaces
 {
-    public interface IUserListRepo
+    public interface IUserRepo
     {
         User? GetByUsername(string username);
     }

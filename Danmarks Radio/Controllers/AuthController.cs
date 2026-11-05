@@ -13,9 +13,9 @@ namespace Danmarks_Radio.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly IUserListRepo _userRepo;
+        private readonly IUserRepo _userRepo;
 
-        public AuthController(IConfiguration config, IUserListRepo userRepo)
+        public AuthController(IConfiguration config, IUserRepo userRepo)
         {
             _config = config;
             _userRepo = userRepo;

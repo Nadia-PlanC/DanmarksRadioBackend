@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Danmarks_Radio.Interfaces
 {
-    public interface IMusicListRepo
+    public interface IMusicRepo
     {
         public IEnumerable<MusicRecord> GetAllRecords();
         public IEnumerable<MusicRecord> GetAll(string? titleContains = null, string? artist = null, string? sortBy = null);
