@@ -8,14 +8,14 @@ namespace Danmarks_Radio.Repos
         private readonly List<MusicRecord> _records = new();
         private int _nextId = 1;
 
-        public MusicListRepo(bool includeData = false)
+        public MusicListRepo(bool includeData = true)
         {
             if (includeData)
             {
-                _records.Add(new MusicRecord { Title = "Bohemian Rhapsody", Artist = "Queen", Duration = 5.55f, Year = 1975 });
-                _records.Add(new MusicRecord { Title = "Billie Jean", Artist = "Michael Jackson", Duration = 4.54f, Year = 1982 });
-                _records.Add(new MusicRecord { Title = "Smells Like Teen Spirit", Artist = "Nirvana", Duration = 5.01f, Year = 1991 });
-                _records.Add(new MusicRecord { Title = "Blinding Lights", Artist = "The Weeknd", Duration = 3.20f, Year = 2019 });
+                _records.Add(new MusicRecord { Id = 1, Title = "Bohemian Rhapsody", Artist = "Queen", Duration = 5.55f, Year = 1975 });
+                _records.Add(new MusicRecord { Id = 2, Title = "Billie Jean", Artist = "Michael Jackson", Duration = 4.54f, Year = 1982 });
+                _records.Add(new MusicRecord { Id = 3, Title = "Smells Like Teen Spirit", Artist = "Nirvana", Duration = 5.01f, Year = 1991 });
+                _records.Add(new MusicRecord { Id = 4, Title = "Blinding Lights", Artist = "The Weeknd", Duration = 3.20f, Year = 2019 });
             }
         }
 
