@@ -39,6 +39,22 @@ namespace Danmarks_Radio.Controllers
             }
         }
 
+        // GET: api/MusicRecord/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<MusicRecord> GetById(int id)
+        {
+            MusicRecord? record = _repository.GetRecordById(id);
+
+            if (record == null)
+            {
+                return NotFound($"MusicRecord med id {id} blev ikke fundet.");
+            }
+
+            return Ok(record);
+        }
+
         // POST api/<MusicRecordController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
