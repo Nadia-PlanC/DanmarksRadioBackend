@@ -19,7 +19,7 @@ namespace Danmarks_Radio.Controllers
         }
 
         // GET: api/MusicRecord
-        [Authorize(Roles = "Admin")] // Kræver login (gyldig JWT token og "Admin" rolle)
+        //[Authorize(Roles = "Admin")] // Kræver login (gyldig JWT token og "Admin" rolle)
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -39,11 +39,27 @@ namespace Danmarks_Radio.Controllers
             }
         }
 
+        // GET: api/MusicRecord/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<MusicRecord> GetById(int id)
+        {
+            MusicRecord? record = _repository.GetRecordById(id);
+
+            if (record == null)
+            {
+                return NotFound($"MusicRecord med id {id} blev ikke fundet.");
+            }
+
+            return Ok(record);
+        }
+
         // POST api/<MusicRecordController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
 
         public ActionResult<MusicRecord> Post([FromBody] MusicRecord newRecord)
         {
@@ -56,7 +72,7 @@ namespace Danmarks_Radio.Controllers
         }
 
         // Delete api/<MusicRecordController>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -76,7 +92,7 @@ namespace Danmarks_Radio.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public ActionResult<MusicRecord> Put(int id, [FromBody] MusicRecord updates)
         {
             MusicRecord? updatedRecord = _repository.UpdateRecord(id, updates);
