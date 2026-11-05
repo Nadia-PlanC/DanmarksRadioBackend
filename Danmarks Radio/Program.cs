@@ -75,7 +75,12 @@ builder.Services.AddSwaggerGen(opt =>
 });
 
 // Database (Entity Framework)
-var connectionString = builder.Configuration["ConnectionString"]; // secret json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Connection string 'DefaultConnection' is missing.");
+}
+
 builder.Services.AddDbContext<EFDBContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddTransient<IMusicRepo, DbMusicRepo>(); // Transient, fordi data ligger i databasen
 //builder.Services.AddSingleton<IMusicRepo>(new MusicListRepo(includeData: true)); // List version
