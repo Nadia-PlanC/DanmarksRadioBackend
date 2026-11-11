@@ -59,7 +59,7 @@ namespace Danmarks_Radio.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
 
         public ActionResult<MusicRecord> Post([FromBody] MusicRecord newRecord)
         {
@@ -72,7 +72,7 @@ namespace Danmarks_Radio.Controllers
         }
 
         // Delete api/<MusicRecordController>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,7 +92,7 @@ namespace Danmarks_Radio.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<MusicRecord> Put(int id, [FromBody] MusicRecord updates)
         {
             MusicRecord? updatedRecord = _repository.UpdateRecord(id, updates);
